@@ -7,7 +7,7 @@ from flask import Flask, request
 from flask import render_template
 from upbit import Upbit
 
-app = Flask(__name__)
+app = Flask(__name__) #hi
 upbit = Upbit()
 # upbit.get_hour_candles('KRW-BTC')
 
