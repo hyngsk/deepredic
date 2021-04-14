@@ -36,6 +36,7 @@ def telegram_response():
     chat_id = None
     text = None
     date = None
+
     if request.get_json().get('message') is not None:
         chat_id = request.get_json().get('message').get('from').get('id')
         text = request.get_json().get('message').get('text').split()
