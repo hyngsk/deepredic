@@ -1,4 +1,6 @@
 import datetime #333
+import json
+
 import requests
 import telegram
 # import numpy as np
@@ -30,9 +32,9 @@ bot = telegram.Bot(token)
 
 @app.route(f'/{token}', methods=['POST'])
 def telegram_response():
-    print(request.get_json())
+    print(f"{json.dumps(request.get_json(), indent=4)}")
     update = telegram.update.Update.de_json(request.get_json(force=True), bot=bot)
-    print(update)
+    print(f'\n{type(update)}\n{update}')
     chat_id = None
     text = None
     date = None
