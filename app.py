@@ -115,7 +115,7 @@ def root():
 
 if __name__ == '__main__':
     ssl_context = ssl.SSLContext(ssl.PROTOCOL_TLS)
-    ssl_context.load_cert_chain(certfile='newcert.pem', keyfile='newkey.pem', password='secret')
+    ssl_context.load_cert_chain(certfile='newkey.crt', keyfile='newkey.key', password='secret')
 
     scheduler = Scheduler()
     scheduler.scheduler('cron', "Every1Hour")
