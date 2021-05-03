@@ -40,7 +40,7 @@ bot = telegram.Bot(token)
 def telegram_response():
     logging.info(f"{json.dumps(request.get_json(), indent=4)}")
     #update = telegram.update.Update.de_json(request.get_json(force=True), bot=bot)
-    logging.info(f'\n{type(update)}\n{update}')
+    #logging.info(f'\n{type(update)}\n{update}')
     chat_id = None
     text = None
     date = None
