@@ -122,4 +122,4 @@ if __name__ == '__main__':
     scheduler.scheduler('cron', "Every15Minutes")
     app.debug = True
 
-    app.run(host='0.0.0.0', port=443, threaded=False, ssl_context=ssl_context)
+    app.run(host='0.0.0.0', port=8443, threaded=False, ssl_context=ssl_context)
