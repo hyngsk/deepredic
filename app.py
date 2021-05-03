@@ -37,7 +37,7 @@ bot = telegram.Bot(token)
 @app.errorhandler(405)
 def method_not_allowed(error):
 	app.logger.error(error)
-	return render_template('method_not_allowed'), 405
+	return '', 405
 
 @app.route(f'/{token}', methods=['POST'])
 def telegram_response():
