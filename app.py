@@ -84,9 +84,9 @@ def show_Data():
     data = request.args.get('data')
     if data is None or data == '':
         return 'No data parameter'
-    elif data == 1:
+    elif data == "1":
         result = getData('Every15Minutes.csv')
-    elif data == 2:
+    elif data == "2":
         result = getData('Every1Hour.csv')
     else:
         return '1 또는 2를 입력해주세요.'
@@ -96,7 +96,16 @@ def show_Data():
 def root():
     market = request.args.get('market')
     if market is None or market == '':
-        return 'No market parameter'
+        candles = upbit.get_hour_candles("BTC")
+        label = market
+        xlabels = []
+        dataset = []
+        i = 0
+        for candle in candles:
+            xlabels.append('')
+            dataset.append(candle['trade_price'])
+            i += 1
+        return render_template('chart.html', **locals())
 
     candles = upbit.get_hour_candles(market)
     if candles is None:
