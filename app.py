@@ -14,6 +14,7 @@ from upbit import Upbit
 import logging
 
 app = Flask(__name__)  # hi
+app.config['JSON_AS_ASCII'] = False
 upbit = Upbit()
 # upbit.get_hour_candles('KRW-BTC')
 
