@@ -11,12 +11,14 @@ from flask import render_template
 from Scheduler import Scheduler
 from datautil import getData
 from upbit import Upbit
+import logging
 
 app = Flask(__name__) #hi
 upbit = Upbit()
 # upbit.get_hour_candles('KRW-BTC')
 
 #https://api.telegram.org/bot1787156675:AAE6V94s-0ov58WebD4mzhsgjSkms4a0jps/setWebhook?url=https://deepredic.herokuapp.com/1787156675:AAE6V94s-0ov58WebD4mzhsgjSkms4a0jps
+
 token = '1787156675:AAE6V94s-0ov58WebD4mzhsgjSkms4a0jps'
 api_url = 'https://api.telegram.org'
 bot = telegram.Bot(token)
@@ -35,9 +37,9 @@ bot = telegram.Bot(token)
 
 @app.route(f'/{token}', methods=['POST'])
 def telegram_response():
-    print(f"{json.dumps(request.get_json(), indent=4)}")
+    logging.info(f"{json.dumps(request.get_json(), indent=4)}")
     update = telegram.update.Update.de_json(request.get_json(force=True), bot=bot)
-    print(f'\n{type(update)}\n{update}')
+    logging.info(f'\n{type(update)}\n{update}')
     chat_id = None
     text = None
     date = None
@@ -65,7 +67,7 @@ def telegram_response():
                     send_message(chat_id, '올바른 화폐를 입력해주세요.')
             else:
                 send_message(chat_id, '구현되지 않은 명령어입니다. \ndevelper\'s email: hyngsk.o@gmail.com')
-            print(f'{datetime.datetime.fromtimestamp(date)} : {text}')
+            logging.info(f'{datetime.datetime.fromtimestamp(date)} : {text}')
         else:
             pass
     # else:
