@@ -37,11 +37,12 @@ bot = telegram.Bot(token)
 #     return str(np.argmax(result['dense_1'].numpy()))
 @app.errorhandler(405)
 def method_not_allowed(error):
+    logging.info(json.dumps(request.get_json(), indent=4))
     app.logger.error(error)
     return '', 405
 
 
-@app.route(f'/{token}', methods=['POST', 'GET'])
+@app.route(f'/{token}', methods=['POST'])
 def telegram_response():
     logging.info(f"{json.dumps(request.get_json(), indent=4)}")
     # update = telegram.update.Update.de_json(request.get_json(force=True), bot=bot)
