@@ -1,3 +1,5 @@
+import logging
+
 import pandas as pd
 
 
@@ -31,7 +33,7 @@ def add_EMAs(filename):
     df['MACD'] = df.iloc[:, [3]].ewm(span=12, adjust=False).mean() - df.iloc[:, [3]].ewm(span=26, adjust=False).mean()
     df['MACDsignal'] = df.iloc[:, [8]].ewm(span=9, adjust=False).mean()
     df['MACD-S'] = df['MACD'] - df['MACDsignal']
-    print(df)
+    logging.info(df)
     df.to_csv(filename, index=False, encoding='UTF-8')
 
 

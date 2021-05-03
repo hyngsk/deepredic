@@ -74,7 +74,7 @@ def telegram_response():
                     send_message(chat_id, '올바른 화폐를 입력해주세요.')
             else:
                 send_message(chat_id, '구현되지 않은 명령어입니다. \ndevelper\'s email: hyngsk.o@gmail.com')
-            logging.info(f'{datetime.datetime.fromtimestamp(date)} : {text}')
+            #logging.info(f'{datetime.datetime.fromtimestamp(date)} : {text}')
         else:
             pass
     # else:
@@ -93,9 +93,9 @@ def show_Data():
     if data is None or data == '':
         return 'No data parameter'
     elif data == "1":
-        result = str(getData('Every15Minutes.csv'))
+        result = getData('Every15Minutes.csv').to_string()
     elif data == "2":
-        result = str(getData('Every1Hour.csv'))
+        result = getData('Every1Hour.csv').to_string()
     else:
         return '1 또는 2를 입력해주세요.'
     return result
