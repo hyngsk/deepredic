@@ -1,12 +1,15 @@
 import datetime #333
 import json
-
+import ssl
 import requests
 import telegram
 # import numpy as np
 # import tensorflow as tf
 from flask import Flask, request
 from flask import render_template
+
+from Scheduler import Scheduler
+from datautil import getData
 from upbit import Upbit
 
 app = Flask(__name__) #hi
@@ -76,6 +79,19 @@ def send_message(chat_id, message):
     requests.get(f'{api_url}/bot{token}/sendMessage?chat_id={chat_id}&text={message}')
 
 
+@app.route('/data/')
+def show_Data():
+    data = request.args.get('data')
+    if data is None or data == '':
+        return 'No data parameter'
+    elif data == 1:
+        result = getData('Every15Minutes.csv')
+    elif data == 2:
+        result = getData('Every1Hour.csv')
+    else:
+        return '1 또는 2를 입력해주세요.'
+    return result
+
 @app.route('/')
 def root():
     market = request.args.get('market')
@@ -98,5 +114,12 @@ def root():
 
 
 if __name__ == '__main__':
+    ssl_context = ssl.SSLContext(ssl.PROTOCOL_TLS)
+    ssl_context.load_cert_chain(certfile='newcert.pem', keyfile='newkey.pem', password='secret')
+
+    scheduler = Scheduler()
+    scheduler.scheduler('cron', "Every1Hour")
+    scheduler.scheduler('cron', "Every15Minutes")
     app.debug = True
-    app.run(host='0.0.0.0',port=8443, threaded=False)
+
+    app.run(host='0.0.0.0', port=443, threaded=False, ssl_context=ssl_context)
