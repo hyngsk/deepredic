@@ -96,18 +96,7 @@ def show_Data():
 def root():
     market = request.args.get('market')
     if market is None or market == '':
-        market = 'BTC'
-        candles = upbit.get_hour_candles(market)
-        label = market
-        xlabels = []
-        dataset = []
-        i = 0
-        for candle in candles:
-            xlabels.append('')
-            dataset.append(candle['trade_price'])
-            i += 1
-        return render_template('chart.html', **locals())
-
+        return 'No market parameter'
     candles = upbit.get_hour_candles(market)
     if candles is None:
         return 'invalid market: {}'.format(market)
