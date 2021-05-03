@@ -30,16 +30,15 @@ class Scheduler:
 
     def Every1Hour(self):
         filename = 'Every1Hour.csv'
-        with open(filename, 'a') as f:
+        with open(filename) as f:
             df = self.upbit.get_1hour_candle('KRW-BTC')
             df.to_csv(filename, index=True, mode='a', encoding='utf-8', header=False)
         add_EMAs(filename)
 
     def Every15Minutes(self):
         filename = 'Every15Minutes.csv'
-        with open(filename, 'a') as f:
+        with open(filename) as f:
             df = self.upbit.get_15minutes_candle('KRW-BTC')
-
             df.to_csv(filename, index=True, mode='a', encoding='utf-8', header=False)
         add_EMAs(filename)
 

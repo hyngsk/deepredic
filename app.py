@@ -34,7 +34,10 @@ bot = telegram.Bot(token)
 #     data = request.json
 #     result = load_inference(tf.constant(data['images'], dtype=tf.float32) / 255.0)
 #     return str(np.argmax(result['dense_1'].numpy()))
-
+@app.errorhandler(405)
+def method_not_allowed(error):
+	app.logger.error(error)
+	return render_template('method_not_allowed'), 405
 
 @app.route(f'/{token}', methods=['POST'])
 def telegram_response():
