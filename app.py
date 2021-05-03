@@ -85,9 +85,9 @@ def show_Data():
     if data is None or data == '':
         return 'No data parameter'
     elif data == "1":
-        result = getData('Every15Minutes.csv')
+        result = str(getData('Every15Minutes.csv'))
     elif data == "2":
-        result = getData('Every1Hour.csv')
+        result = str(getData('Every1Hour.csv'))
     else:
         return '1 또는 2를 입력해주세요.'
     return result
