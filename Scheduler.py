@@ -32,23 +32,16 @@ class Scheduler:
         filename = 'Every1Hour.csv'
         with open(filename, 'a') as f:
             df = self.upbit.get_1hour_candle('KRW-BTC')
-            if not os.path.exists(filename):
-                df.to_csv(filename, index=False, mode='w', encoding='utf-8')
-            else:
-                df.to_csv(filename, index=True, mode='a', encoding='utf-8', header=False)
+            df.to_csv(filename, index=True, mode='a', encoding='utf-8', header=False)
         add_EMAs(filename)
-        print(self.upbit.get_1hour_candle('KRW-BTC'))
 
     def Every15Minutes(self):
         filename = 'Every15Minutes.csv'
         with open(filename, 'a') as f:
             df = self.upbit.get_15minutes_candle('KRW-BTC')
-            if not os.path.exists(filename):
-                df.to_csv(filename, index=False, mode='w', encoding='utf-8')
-            else:
-                df.to_csv(filename, index=True, mode='a', encoding='utf-8', header=False)
+
+            df.to_csv(filename, index=True, mode='a', encoding='utf-8', header=False)
         add_EMAs(filename)
-        print(self.upbit.get_1hour_candle('KRW-BTC'))
 
     def scheduler(self, type, job_id):
         print("{type} Scheduler Start".format(type=type))

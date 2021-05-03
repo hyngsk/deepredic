@@ -23,7 +23,6 @@ def add_EMAs(filename):
     :return: None
     """
     df = pd.read_csv(filename, delimiter=',')
-    print(df)
     df.iloc[:, 2:6].astype('float')
     df['EMA5'] = df.iloc[:, [4]].ewm(span=5, adjust=False).mean()
     df['EMA10'] = df.iloc[:, [4]].ewm(span=10, adjust=False).mean()
@@ -32,6 +31,7 @@ def add_EMAs(filename):
     df['MACD'] = df.iloc[:, [3]].ewm(span=12, adjust=False).mean() - df.iloc[:, [3]].ewm(span=26, adjust=False).mean()
     df['MACDsignal'] = df.iloc[:, [8]].ewm(span=9, adjust=False).mean()
     df['MACD-S'] = df['MACD'] - df['MACDsignal']
+    print(df)
     df.to_csv(filename, index=False, encoding='UTF-8')
 
 

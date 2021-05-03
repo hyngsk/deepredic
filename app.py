@@ -1,4 +1,4 @@
-import datetime #333
+import datetime  # 333
 import json
 import ssl
 import requests
@@ -13,15 +13,16 @@ from datautil import getData
 from upbit import Upbit
 import logging
 
-app = Flask(__name__) #hi
+app = Flask(__name__)  # hi
 upbit = Upbit()
 # upbit.get_hour_candles('KRW-BTC')
 
-#https://api.telegram.org/bot1787156675:AAE6V94s-0ov58WebD4mzhsgjSkms4a0jps/setWebhook?url=https://deepredic.herokuapp.com/1787156675:AAE6V94s-0ov58WebD4mzhsgjSkms4a0jps
+# https://api.telegram.org/bot1787156675:AAE6V94s-0ov58WebD4mzhsgjSkms4a0jps/setWebhook?url=https://deepredic.herokuapp.com/1787156675:AAE6V94s-0ov58WebD4mzhsgjSkms4a0jps
 
 token = '1787156675:AAE6V94s-0ov58WebD4mzhsgjSkms4a0jps'
 api_url = 'https://api.telegram.org'
 bot = telegram.Bot(token)
+
 
 #
 # load = tf.saved_model.load('mnist/1')
@@ -37,13 +38,13 @@ bot = telegram.Bot(token)
 
 @app.route(f'/{token}', methods=['POST'])
 def telegram_response():
+
     logging.info(f"{json.dumps(request.get_json(), indent=4)}")
     update = telegram.update.Update.de_json(request.get_json(force=True), bot=bot)
     logging.info(f'\n{type(update)}\n{update}')
     chat_id = None
     text = None
     date = None
-
 
     if request.get_json().get('message').get('text') is not None:
         chat_id = request.get_json().get('message').get('from').get('id')
@@ -55,8 +56,9 @@ def telegram_response():
             # print(f'length : {entities[0]["length"]}\ntype : {entities[0]["type"]}')
             if text[0] == '/start':
                 send_message(chat_id, 'We\'re making chat bot. \nbut you can use \'/code {name}\' command only.')
-            elif text[0] =='/help':
-                send_message(chat_id, 'you can get current trade price in Upbit\nusing \'/code {currency code}\' command.')
+            elif text[0] == '/help':
+                send_message(chat_id,
+                             'you can get current trade price in Upbit\nusing \'/code {currency code}\' command.')
 
             elif text[0] == '/code':
                 try:
@@ -72,7 +74,6 @@ def telegram_response():
             pass
     # else:
     #     send_message(chat_id, '올바르지 않은 명령어입니다. \n명령어 포맷 : 영문 소문자 \ndevelper\'s email: hyngsk.o@gmail.com')
-
 
     return '', 200
 
@@ -93,6 +94,7 @@ def show_Data():
     else:
         return '1 또는 2를 입력해주세요.'
     return result
+
 
 @app.route('/')
 def root():
@@ -115,7 +117,6 @@ def root():
 
 
 if __name__ == '__main__':
-
     scheduler = Scheduler()
     scheduler.scheduler('cron', "Every1Hour")
     scheduler.scheduler('cron', "Every15Minutes")
