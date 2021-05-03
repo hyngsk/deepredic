@@ -96,7 +96,8 @@ def show_Data():
 def root():
     market = request.args.get('market')
     if market is None or market == '':
-        candles = upbit.get_hour_candles("BTC")
+        market = 'BTC'
+        candles = upbit.get_hour_candles(market)
         label = market
         xlabels = []
         dataset = []
