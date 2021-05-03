@@ -114,12 +114,10 @@ def root():
 
 
 if __name__ == '__main__':
-    ssl_context = ssl.SSLContext(ssl.PROTOCOL_TLS)
-    ssl_context.load_cert_chain(certfile='newkey.crt', keyfile='newkey.key', password='hyngsk1540')
 
     scheduler = Scheduler()
     scheduler.scheduler('cron', "Every1Hour")
     scheduler.scheduler('cron', "Every15Minutes")
     app.debug = True
 
-    app.run(host='0.0.0.0', port=8443, threaded=False, ssl_context=ssl_context)
+    app.run(host='0.0.0.0', port=8443, threaded=False)
