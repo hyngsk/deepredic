@@ -142,6 +142,10 @@ if __name__ == '__main__':
     app.debug = True
     app.run(host='0.0.0.0', port=443, threaded=False)
 else:
+
     gunicorn_logger = logging.getLogger('gunicorn.error')
     app.logger.handlers = gunicorn_logger.handlers
     app.logger.setLevel(gunicorn_logger.level)
+    scheduler = Scheduler()
+    app.logger.info(scheduler.scheduler('cron', "Every1Hour"))
+    app.logger.info(scheduler.scheduler('cron', "Every15Minutes"))

@@ -44,7 +44,6 @@ class Scheduler:
         add_EMAs(filename)
 
     def scheduler(self, type, job_id):
-        app.logger.info("{type} Scheduler Start".format(type=type))
         if type == 'cron':
             if job_id == 'Every1Hour':
                 self.sched.add_job(self.Every1Hour,
@@ -53,6 +52,7 @@ class Scheduler:
                                    minute='0',  # 0분
                                    second='5',  # 5초에
                                    id=job_id)
+                return "{type} Scheduler Start".format(type=type)
             elif job_id == 'Every15Minutes':
                 self.sched.add_job(self.Every15Minutes,
                                    type,
@@ -60,3 +60,4 @@ class Scheduler:
                                    minute='*/15',  # 15분마다
                                    second='5',  # 5초에
                                    id=job_id)
+                return "{type} Scheduler Start".format(type=type)
