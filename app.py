@@ -37,7 +37,7 @@ bot = telegram.Bot(token)
 #     return str(np.argmax(result['dense_1'].numpy()))
 @app.errorhandler(405)
 def method_not_allowed(error):
-    logging.info(json.dumps(request.get_json(), indent=4))
+    logging.info(request.host, request.data, request.headers)
     app.logger.error(error)
     return '', 405
 
@@ -50,6 +50,8 @@ def telegram_response():
     chat_id = None
     text = None
     date = None
+    if request.get_json() is None:
+        return '', 200
 
     if request.get_json().get('message').get('text') is not None:
         chat_id = request.get_json().get('message').get('from').get('id')
@@ -104,6 +106,7 @@ def show_Data():
 @app.route('/')
 def root():
     market = request.args.get('market')
+    logging.info(f'requested market : {market}')
     if market is None or market == '':
         return 'No market parameter'
     candles = upbit.get_hour_candles(market)

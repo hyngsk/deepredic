@@ -53,12 +53,12 @@ class Upbit:
 
     def get_current_price(self, market):
         cp = self.__upbit.get_ticker(market)
-        print(cp)
+        #print(cp)
         return cp
 
     def get_hour_candles(self, market):
         if market not in self.__krw_markets.keys():
             return None
-        candles = self.__upbit.get_minutes_candles(60, market, count=10)
-        print(candles)
+        candles = self.__upbit.get_minutes_candles(15, market, count=60)
+        #print(candles)
         return candles
