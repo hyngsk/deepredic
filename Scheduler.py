@@ -3,6 +3,7 @@ import os
 from apscheduler.jobstores.base import JobLookupError
 from apscheduler.schedulers.background import BackgroundScheduler
 
+from app import app
 from datautil import add_EMAs, data_setup
 from upbit import Upbit
 
@@ -25,7 +26,7 @@ class Scheduler:
         try:
             self.sched.remove_job(job_id)
         except JobLookupError as err:
-            print("fail to stop Scheduler: {err}".format(err=err))
+            app.logger.info("fail to stop Scheduler: {err}".format(err=err))
             return
 
     def Every1Hour(self):
@@ -43,7 +44,7 @@ class Scheduler:
         add_EMAs(filename)
 
     def scheduler(self, type, job_id):
-        print("{type} Scheduler Start".format(type=type))
+        app.logger.info("{type} Scheduler Start".format(type=type))
         if type == 'cron':
             if job_id == 'Every1Hour':
                 self.sched.add_job(self.Every1Hour,
