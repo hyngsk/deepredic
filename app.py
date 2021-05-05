@@ -108,7 +108,8 @@ def show_Data():
 @app.route('/')
 def root():
     market = request.args.get('market')
-    app.logger.info(request.host, request.data, request.headers)
+    app.logger.info(f'\n{type(request.host), type(request.data), type(request.headers)}'
+                    f'\n{str(request.host)}\n{str(request.data)}\n{str(request.headers)}')
     app.logger.info(f'requested market : {market}')
     if market is None or market == '':
         return 'No market parameter'
