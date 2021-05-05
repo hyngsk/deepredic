@@ -1,9 +1,7 @@
-import os
 
 from apscheduler.jobstores.base import JobLookupError
 from apscheduler.schedulers.background import BackgroundScheduler
 
-from app import app
 from datautil import add_EMAs, data_setup
 from upbit import Upbit
 
@@ -26,8 +24,8 @@ class Scheduler:
         try:
             self.sched.remove_job(job_id)
         except JobLookupError as err:
-            app.logger.info("fail to stop Scheduler: {err}".format(err=err))
-            return
+
+            return "fail to stop Scheduler: {err}".format(err=err)
 
     def Every1Hour(self):
         filename = 'Every1Hour.csv'
