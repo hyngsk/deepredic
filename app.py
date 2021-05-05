@@ -38,21 +38,21 @@ bot = telegram.Bot(token)
 #     return str(np.argmax(result['dense_1'].numpy()))
 @app.errorhandler(405)
 def method_not_allowed(error):
-    app.logger.info('*'*30,f'\n{str(request.headers)}\n','*'*30)
+    app.logger.info('\n' + '*' * 30 + f'\n{str(request.headers)}\n' + '*' * 30)
     app.logger.error(error)
     return '', 405
 
 
 @app.errorhandler(404)
 def page_not_found(error):
-    app.logger.info('*'*30,f'\n{str(request.headers)}\n','*'*30)
+    app.logger.info('\n' + '*' * 30 + f'\n{str(request.headers)}\n' + '*' * 30)
     app.logger.error(error)
     return '', 404
 
 
 @app.route(f'/{token}', methods=['POST'])
 def telegram_response():
-    app.logger.info('*'*30,f'\n{str(request.headers)}\n','*'*30)
+    app.logger.info('\n' + '*' * 30 + f'\n{str(request.headers)}\n' + '*' * 30)
     app.logger.info(f"{json.dumps(request.get_json(), indent=4)}")
     # update = telegram.update.Update.de_json(request.get_json(force=True), bot=bot)
     # logging.info(f'\n{type(update)}\n{update}')
@@ -100,7 +100,7 @@ def send_message(chat_id, message):
 
 @app.route('/data/')
 def show_Data():
-    app.logger.info('*'*30,f'\n{str(request.headers)}\n','*'*30)
+    app.logger.info('\n' + '*' * 30 + f'\n{str(request.headers)}\n' + '*' * 30)
     data = request.args.get('data')
     if data is None or data == '':
         return 'No data parameter'
@@ -116,7 +116,7 @@ def show_Data():
 @app.route('/')
 def root():
     market = request.args.get('market')
-    app.logger.info('*'*30,f'\n{str(request.headers)}\n','*'*30)
+    app.logger.info('\n' + '*' * 30 + f'\n{str(request.headers)}\n' + '*' * 30)
     app.logger.info(f'requested market : {market}')
     if market is None or market == '':
         return 'No market parameter'
