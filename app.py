@@ -45,7 +45,7 @@ def method_not_allowed(error):
 
 @app.route(f'/{token}', methods=['POST'])
 def telegram_response():
-    logging.info(f"{json.dumps(request.get_json(), indent=4)}")
+    app.logger.info(f"{json.dumps(request.get_json(), indent=4)}")
     # update = telegram.update.Update.de_json(request.get_json(force=True), bot=bot)
     # logging.info(f'\n{type(update)}\n{update}')
     chat_id = None
