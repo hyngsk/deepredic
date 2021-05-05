@@ -38,7 +38,7 @@ bot = telegram.Bot(token)
 #     return str(np.argmax(result['dense_1'].numpy()))
 @app.errorhandler(405)
 def method_not_allowed(error):
-    logging.info(request.host, request.data, request.headers)
+    app.logger.info(request.host, request.data, request.headers)
     app.logger.error(error)
     return '', 405
 
@@ -92,6 +92,7 @@ def send_message(chat_id, message):
 
 @app.route('/data/')
 def show_Data():
+    app.logger.info(request.host, request.data, request.headers)
     data = request.args.get('data')
     if data is None or data == '':
         return 'No data parameter'
@@ -107,7 +108,8 @@ def show_Data():
 @app.route('/')
 def root():
     market = request.args.get('market')
-    logging.info(f'requested market : {market}')
+    app.logger.info(request.host, request.data, request.headers)
+    app.logger.info(f'requested market : {market}')
     if market is None or market == '':
         return 'No market parameter'
     candles = upbit.get_hour_candles(market)
