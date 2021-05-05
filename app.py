@@ -38,13 +38,21 @@ bot = telegram.Bot(token)
 #     return str(np.argmax(result['dense_1'].numpy()))
 @app.errorhandler(405)
 def method_not_allowed(error):
-    app.logger.info(request.host, request.data, request.headers)
+    app.logger.info(f'\n{str(request.headers)}\n')
     app.logger.error(error)
     return '', 405
 
 
+@app.errorhandler(404)
+def page_not_found(error):
+    app.logger.info(f'\n{str(request.headers)}\n')
+    app.logger.error(error)
+    return '', 404
+
+
 @app.route(f'/{token}', methods=['POST'])
 def telegram_response():
+    app.logger.info(f'\n{str(request.headers)}\n')
     app.logger.info(f"{json.dumps(request.get_json(), indent=4)}")
     # update = telegram.update.Update.de_json(request.get_json(force=True), bot=bot)
     # logging.info(f'\n{type(update)}\n{update}')
@@ -77,7 +85,7 @@ def telegram_response():
                     send_message(chat_id, '올바른 화폐를 입력해주세요.')
             else:
                 send_message(chat_id, '구현되지 않은 명령어입니다. \ndevelper\'s email: hyngsk.o@gmail.com')
-            #logging.info(f'{datetime.datetime.fromtimestamp(date)} : {text}')
+            # logging.info(f'{datetime.datetime.fromtimestamp(date)} : {text}')
         else:
             pass
     # else:
@@ -92,7 +100,7 @@ def send_message(chat_id, message):
 
 @app.route('/data/')
 def show_Data():
-    app.logger.info(request.host, request.data, request.headers)
+    app.logger.info(f'\n{str(request.headers)}\n')
     data = request.args.get('data')
     if data is None or data == '':
         return 'No data parameter'
@@ -108,8 +116,7 @@ def show_Data():
 @app.route('/')
 def root():
     market = request.args.get('market')
-    app.logger.info(f'\n{type(request.host), type(request.data), type(request.headers)}'
-                    f'\n{str(request.host)}\n{str(request.data)}\n{str(request.headers)}')
+    app.logger.info(f'\n{str(request.headers)}\n')
     app.logger.info(f'requested market : {market}')
     if market is None or market == '':
         return 'No market parameter'
