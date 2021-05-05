@@ -15,6 +15,7 @@ import logging
 
 app = Flask(__name__)  # hi
 app.config['JSON_AS_ASCII'] = False
+
 upbit = Upbit()
 # upbit.get_hour_candles('KRW-BTC')
 
@@ -129,5 +130,8 @@ if __name__ == '__main__':
     scheduler.scheduler('cron', "Every1Hour")
     scheduler.scheduler('cron', "Every15Minutes")
     app.debug = True
-
     app.run(host='0.0.0.0', port=443, threaded=False)
+else:
+    gunicorn_logger = logging.getLogger('gunicorn.error')
+    app.logger.handlers = gunicorn_logger.handlers
+    app.logger.setLevel(gunicorn_logger.level)
