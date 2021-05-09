@@ -2,10 +2,12 @@ from apscheduler.jobstores.base import JobLookupError
 from apscheduler.schedulers.background import BackgroundScheduler
 
 from datautil import add_EMAs, data_setup
-from upbit import Upbit
+import upbit
 
 
 class Scheduler:
+    _sched = None
+
     def __new__(cls, *args, **kwargs):
         if not hasattr(cls, "_instance"):         # Foo 클래스 객체에 _instance 속성이 없다면
             print("__new__ is called\n")
@@ -16,7 +18,6 @@ class Scheduler:
         cls = type(self)
         if not hasattr(cls, "_init"):  # Foo 클래스 객체에 _init 속성이 없다면
             print("__init__ is called\n")
-        self.upbit = Upbit()
         self.sched = BackgroundScheduler()
         self.sched.start()
         self.job_id = ''
@@ -39,14 +40,14 @@ class Scheduler:
     def Every1Hour(self):
         filename = 'Every1Hour.csv'
         with open(filename) as f:
-            df = self.upbit.get_1hour_candle('KRW-BTC')
+            df = upbit.Upbit.get_1hour_candle('KRW-BTC')
             df.to_csv(filename, index=True, mode='a', encoding='utf-8', header=False)
         add_EMAs(filename)
 
     def Every15Minutes(self):
         filename = 'Every15Minutes.csv'
         with open(filename) as f:
-            df = self.upbit.get_15minutes_candle('KRW-BTC')
+            df = upbit.Upbit.get_15minutes_candle('KRW-BTC')
             df.to_csv(filename, index=True, mode='a', encoding='utf-8', header=False)
         add_EMAs(filename)
 
