@@ -9,14 +9,14 @@ from flask import Flask, request
 from flask import render_template
 from Scheduler import Scheduler
 from datautil import getData
-import upbit
+from upbit import Upbit
 import logging
 
 app = Flask(__name__)  # hi
 app.config['JSON_AS_ASCII'] = False
 
-
-# upbit.get_hour_candles('KRW-BTC')
+upbit = Upbit()
+# upbit. get_hour_candles('KRW-BTC')
 
 # https://api.telegram.org/bot1787156675:AAE6V94s-0ov58WebD4mzhsgjSkms4a0jps/setWebhook?url=https://deepredic.herokuapp.com/1787156675:AAE6V94s-0ov58WebD4mzhsgjSkms4a0jps
 
@@ -78,7 +78,7 @@ def telegram_response():
             elif text[0] == '/code':
                 try:
                     market = ['KRW-' + text[1]]
-                    result = upbit.Upbit.get_current_price(market)
+                    result = upbit.get_current_price(market)
                     send_message(chat_id, f'{text[1]}의 현재가는 {result[0]["trade_price"]}입니다.')
                 except:
                     send_message(chat_id, '올바른 화폐를 입력해주세요.')
