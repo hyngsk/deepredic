@@ -146,7 +146,5 @@ else:
     app.logger.handlers = gunicorn_logger.handlers
     app.logger.setLevel(gunicorn_logger.level)
     scheduler = Scheduler()
-    a = scheduler.scheduler('cron', "Every1Hour")
-    b = scheduler.scheduler('cron', "Every15Minutes")
-    app.logger.info(a)
-    app.logger.info(b)
+    app.logger.info(scheduler.scheduler('cron', "Every1Hour"))
+    app.logger.info(scheduler.scheduler('cron', "Every15Minutes"))

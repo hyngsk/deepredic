@@ -66,7 +66,7 @@ class Scheduler:
                 self.sched.add_job(self.Every15Minutes,
                                    type,
                                    hour='*',  # 매 시간
-                                   minute='*',  # 15분마다
-                                   second='*/5',  # 5초에
+                                   minute='*/15',  # 15분마다
+                                   second='5',  # 5초에
                                    id=job_id)
                 return "{type} Scheduler Start".format(type=type)
