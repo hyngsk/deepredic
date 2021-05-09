@@ -136,8 +136,8 @@ def root():
 
 if __name__ == '__main__':
     scheduler = Scheduler()
-    # app.logger.info(scheduler.scheduler('cron', "Every1Hour"))
-    # app.logger.info(scheduler.scheduler('cron', "Every15Minutes"))
+    app.logger.info(scheduler.scheduler('cron', "Every1Hour"))
+    app.logger.info(scheduler.scheduler('cron', "Every15Minutes"))
     app.debug = True
     app.run(host='0.0.0.0', port=443, threaded=False)
 else:
