@@ -14,10 +14,10 @@ class CustomGunicornLogger(glogging.Logger):
 
 class HealthCheckFilter(logging.Filter):
     def filter(self, record):
-        logging.info(record.name, record.msg, record.levelname)
-        return 'GET /' not in record.getMessage()
+        print(record.name, record.msg, record.levelname)
+        return 'ELB-HealthChecker' not in record.getMessage()
 
 
 logger_class = CustomGunicornLogger
 loglevel = 'DEBUG'
-accesslog = '/deepredic/access_log'
+accesslog = 'access_log'
