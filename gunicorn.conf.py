@@ -20,5 +20,5 @@ class HealthCheckFilter(logging.Filter):
 
 logger_class = CustomGunicornLogger
 loglevel = 'DEBUG'
-errorlog = '/error_log.txt'
-accesslog = '/access_log.txt'
+errorlog = '/deepredic/error_log.txt'
+accesslog = '/deepredic/access_log.txt'
