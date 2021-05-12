@@ -115,6 +115,8 @@ def show_Data():
 @app.route('/')
 def root():
     market = request.args.get('market')
+    # print(str(request.host_url))
+    app.logger.info('\n' + '*' * 30 + f'\n{str(request.host)} {str(request.host_url)}\n' + '*' * 30)
     app.logger.info('\n' + '*' * 30 + f'\n{str(request.headers)}\n' + '*' * 30)
     app.logger.info(f'requested market : {market}')
     if market is None or market == '':
@@ -135,12 +137,12 @@ def root():
 
 
 if __name__ == '__main__':
-    pass
-    # scheduler = Scheduler()
-    # app.logger.info(scheduler.scheduler('cron', "Every1Hour"))
-    # app.logger.info(scheduler.scheduler('cron', "Every15Minutes"))
-    # app.debug = True
-    # app.run(host='0.0.0.0', port=443, threaded=False)
+
+    scheduler = Scheduler()
+    app.logger.info(scheduler.scheduler('cron', "Every1Hour"))
+    app.logger.info(scheduler.scheduler('cron', "Every15Minutes"))
+    app.debug = True
+    app.run(host='0.0.0.0', port=443, threaded=False)
 else:
     gunicorn_logger = logging.getLogger('gunicorn.error')
     app.logger.handlers = gunicorn_logger.handlers
