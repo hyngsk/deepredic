@@ -146,7 +146,7 @@ if __name__ == '__main__':
     app.debug = True
     app.run(host='0.0.0.0', port=443, threaded=False)
 else:
-    gunicorn_logger = logging.getLogger('gunicorn.error')
+    gunicorn_logger = logging.getLogger('gunicorn.access')
     app.logger.handlers = gunicorn_logger.handlers
     app.logger.setLevel(gunicorn_logger.level)
     scheduler = Scheduler()
