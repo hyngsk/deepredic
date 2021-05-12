@@ -117,7 +117,6 @@ def root():
     if str(request.user_agent) != "ELB-HealthChecker/2.0":
         app.logger.info('\n' + '*' * 30 + f'\n{str(request.host)} {str(request.host_url)}\n' + '*' * 30)
         app.logger.info('\n' + '*' * 30 + f'\n{str(request.headers)}\n' + '*' * 30)
-
     market = request.args.get('market')
     app.logger.info(f'requested market : {market}')
     # print(str(request.user_agent))
