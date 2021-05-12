@@ -1,5 +1,6 @@
 import datetime  # 333
 import json
+import logging
 import ssl
 import requests
 import telegram
@@ -10,7 +11,7 @@ from flask import render_template
 from Scheduler import Scheduler
 from datautil import getData
 from upbit import Upbit
-import logging
+
 
 app = Flask(__name__)  # hi
 app.config['JSON_AS_ASCII'] = False
@@ -146,7 +147,7 @@ if __name__ == '__main__':
     app.debug = True
     app.run(host='0.0.0.0', port=443, threaded=False)
 else:
-    gunicorn_logger = logging.getLogger('gunicorn.access')
+    gunicorn_logger = logging.getLogger('CustomGunicornLogger')
     app.logger.handlers = gunicorn_logger.handlers
     app.logger.setLevel(gunicorn_logger.level)
     scheduler = Scheduler()

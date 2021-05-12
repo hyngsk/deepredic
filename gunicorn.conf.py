@@ -3,12 +3,13 @@ from gunicorn import glogging
 
 
 class CustomGunicornLogger(glogging.Logger):
-
     def setup(self, cfg):
         super().setup(cfg)
 
         # Add filters to Gunicorn logger
         logger = logging.getLogger("gunicorn.access")
+        logger.handlers = logger.handlers
+        logger.setLevel(logger.level)
         logger.addFilter(HealthCheckFilter())
 
 
