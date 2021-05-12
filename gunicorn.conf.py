@@ -1,7 +1,6 @@
 import logging
 from gunicorn import glogging
 
-
 class CustomGunicornLogger(glogging.Logger):
     def setup(self, cfg):
         super().setup(cfg)
@@ -16,7 +15,8 @@ class CustomGunicornLogger(glogging.Logger):
 class HealthCheckFilter(logging.Filter):
     def filter(self, record):
         print(record.name, record.msg, record.levelname)
-        return 'ELB-HealthChecker' not in record.getMessage()
+        alllevel = record.levelname == 'DEBUG' or record.levelname == 'INFO'
+        return 'ELB-HealthChecker' not in record.getMessage() and alllevel
 
 
 logger_class = CustomGunicornLogger
