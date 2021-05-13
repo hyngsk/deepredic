@@ -7,8 +7,6 @@ class CustomGunicornLogger(glogging.Logger):
 
         # Add filters to Gunicorn logger
         logger = logging.getLogger("gunicorn.access")
-        logger.handlers = logger.handlers
-        logger.setLevel(logger.level)
         logger.addFilter(HealthCheckFilter())
 
 
