@@ -104,12 +104,12 @@ def show_Data():
     if data is None or data == '':
         return 'No data parameter'
     elif data == "1":
-        result = getData('Every15Minutes.csv')
+        result = getData('Every15Minutes.csv').sort_values(by=['Time'], axis=0, ascending=False)
         result = result[['Time', 'Open', 'High', 'Low', 'Close', 'Volume', 'EMA5', 'EMA10', 'EMA20', 'EMA60', 'MACD',
                  'MACDsignal',
                  'MACD-S']]
     elif data == "2":
-        result = getData('Every1Hour.csv')
+        result = getData('Every1Hour.csv').sort_values(by=['Time'], axis=0, ascending=False)
         result = result[['Time', 'Open', 'High', 'Low', 'Close', 'Volume', 'EMA5', 'EMA10', 'EMA20', 'EMA60', 'MACD',
                  'MACDsignal',
                  'MACD-S']]
