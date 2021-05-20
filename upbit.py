@@ -28,9 +28,11 @@ class Upbit:
             return None
         candles = self.__upbit.get_minutes_candles(15, market, count=1)
         dt_list = [datetime.datetime.strptime(x['candle_date_time_kst'], "%Y-%m-%dT%H:%M:%S") for x in candles]
-        df = pd.DataFrame(candles, columns=['opening_price', 'high_price', 'low_price', 'trade_price'], index=dt_list)
+        df = pd.DataFrame(candles, columns=['opening_price', 'high_price', 'low_price', 'trade_price',
+                                            'candle_acc_trade_volume'], index=dt_list)
         df = df.rename(
-            columns={"opening_price": "open", "high_price": "high", "low_price": "low", "trade_price": "close"})
+            columns={"opening_price": "open", "high_price": "high", "low_price": "low", "trade_price": "close",
+                     "candle_acc_trade_volume": "volume"})
         # print(candles, type(candles))
         return df
 
@@ -44,9 +46,11 @@ class Upbit:
             return None
         candles = self.__upbit.get_minutes_candles(60, market, count=1)
         dt_list = [datetime.datetime.strptime(x['candle_date_time_kst'], "%Y-%m-%dT%H:%M:%S") for x in candles]
-        df = pd.DataFrame(candles, columns=['opening_price', 'high_price', 'low_price', 'trade_price'], index=dt_list)
+        df = pd.DataFrame(candles, columns=['opening_price', 'high_price', 'low_price', 'trade_price',
+                                            'candle_acc_trade_volume'], index=dt_list)
         df = df.rename(
-            columns={"opening_price": "open", "high_price": "high", "low_price": "low", "trade_price": "close"})
+            columns={"opening_price": "open", "high_price": "high", "low_price": "low", "trade_price": "close",
+                     "candle_acc_trade_volume": "volume"})
         # print(candles, type(candles))
         return df
 
