@@ -12,7 +12,6 @@ from Scheduler import Scheduler
 from datautil import getData
 from upbit import Upbit
 
-
 app = Flask(__name__)  # hi
 app.config['JSON_AS_ASCII'] = False
 
@@ -105,12 +104,14 @@ def show_Data():
     if data is None or data == '':
         return 'No data parameter'
     elif data == "1":
-        result = getData('Every15Minutes.csv').to_string()
+        result = getData('Every15Minutes.csv')
+        result = result[['Time', 'Close', 'Volume', 'MACD']]
     elif data == "2":
-        result = getData('Every1Hour.csv').to_string()
+        result = getData('Every1Hour.csv')
+        result = result[['Time', 'Close', 'Volume', 'MACD']]
     else:
         return '1 또는 2를 입력해주세요.'
-    return result
+    return render_template('table.html', stocklist=list(result.values))
 
 
 @app.route('/')

@@ -43,4 +43,4 @@ def add_EMAs(filename):
 
 def getData(filename):
     result = pd.read_csv(filename, delimiter=',')
-    return result.tail(200)
+    return result
