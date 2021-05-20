@@ -105,10 +105,14 @@ def show_Data():
         return 'No data parameter'
     elif data == "1":
         result = getData('Every15Minutes.csv')
-        result = result[['Time', 'Close', 'Volume', 'MACD']]
+        result = result[['Time', 'Open', 'High', 'Low', 'Close', 'Volume', 'EMA5', 'EMA10', 'EMA20', 'EMA60', 'MACD',
+                 'MACDsignal',
+                 'MACD-S']]
     elif data == "2":
         result = getData('Every1Hour.csv')
-        result = result[['Time', 'Close', 'Volume', 'MACD']]
+        result = result[['Time', 'Open', 'High', 'Low', 'Close', 'Volume', 'EMA5', 'EMA10', 'EMA20', 'EMA60', 'MACD',
+                 'MACDsignal',
+                 'MACD-S']]
     else:
         return '1 또는 2를 입력해주세요.'
     return render_template('table.html', stocklist=list(result.values))

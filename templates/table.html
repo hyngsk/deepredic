@@ -10,8 +10,17 @@
     <thead>
     <tr>
         <th>Time</th>
+        <th>Open</th>
+        <th>High</th>
+        <th>Low</th>
         <th>Close</th>
         <th>Volume</th>
+        <th>EMA5</th>
+        <th>EMA10</th>
+        <th>EMA20</th>
+        <th>EMA60</th>
+        <th>MACD</th>
+        <th>MACDsignal</th>
         <th>MACD-S</th>
     </tr>
     </thead>
@@ -22,6 +31,15 @@
         <td>{{ value[1] }}</td>
         <td>{{ value[2] }}</td>
         <td>{{ value[3] }}</td>
+        <td>{{ value[4] }}</td>
+        <td>{{ value[5] }}</td>
+        <td>{{ value[6] }}</td>
+        <td>{{ value[7] }}</td>
+        <td>{{ value[8] }}</td>
+        <td>{{ value[9] }}</td>
+        <td>{{ value[10] }}</td>
+        <td>{{ value[11] }}</td>
+        <td>{{ value[12] }}</td>
     </tr>
     {% endfor %}
     </tbody>
